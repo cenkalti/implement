@@ -1,9 +1,9 @@
-import os
-import logging
 import importlib
+import logging
+import os
 
-import yapf
 import openai
+import yapf
 
 from implement import source
 
@@ -29,8 +29,10 @@ client = openai.Client()
 
 def implement():
     """Decorator to implement a function using OpenAI's GPT-4o model."""
+
     def wrapper(f: callable):
         return ImplementedFunction(f)
+
     return wrapper
 
 
@@ -61,13 +63,15 @@ def generate_python_script(f: callable) -> str:
     messages = [
         {
             "role": "system",
-            "content": " ".join([
-                "You are Python programmer.",
-                "Implement the given function.",
-                "Do not write type annotations.",
-                "Answer only with code.",
-                "Do not wrap your answer as code block.",
-            ]),
+            "content": " ".join(
+                [
+                    "You are Python programmer.",
+                    "Implement the given function.",
+                    "Do not write type annotations.",
+                    "Answer only with code.",
+                    "Do not wrap your answer as code block.",
+                ]
+            ),
         },
         {
             "role": "user",

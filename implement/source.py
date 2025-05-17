@@ -10,19 +10,19 @@ def extract(func: callable) -> str:
 
     result = []
     for cls in sorted(classes, key=lambda cls: cls.__name__):
-        if inspect.isclass(cls) and cls.__module__ != 'builtins':
+        if inspect.isclass(cls) and cls.__module__ != "builtins":
             result.append(_comment_out(_remove_function_body(cls)))
 
     result.append(_remove_function_body(func))
-    return '\n\n'.join(result)
+    return "\n\n".join(result)
 
 
 def _annotation_names(func: callable) -> set[str]:
     """Return the names of all annotations used in the function signature."""
     signature = inspect.signature(func)
     names = {
-        param.annotation.__name__ for param
-        in signature.parameters.values()
+        param.annotation.__name__
+        for param in signature.parameters.values()
         if param.annotation is not inspect._empty
     }
     if signature.return_annotation is not inspect._empty:
@@ -32,7 +32,7 @@ def _annotation_names(func: callable) -> set[str]:
 
 def _comment_out(source: str) -> str:
     """Comment out every line of the given source code."""
-    return '\n'.join(f'#{line}' for line in source.split('\n'))
+    return "\n".join(f"#{line}" for line in source.split("\n"))
 
 
 def _remove_function_body(cls: type) -> str:
